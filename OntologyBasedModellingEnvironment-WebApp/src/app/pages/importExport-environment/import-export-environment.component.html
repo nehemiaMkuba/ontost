@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>Import Export</title>
+</head>
+<body>
+<br>
+<!--<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile class="import">
+    <mat-card-content>-->
+<div class="row">
+
+<div class="col-md-6">
+  <div class="import">
+    <div class="transbox">
+      <h1 style="text-align:center">Import</h1>
+      <div><h2>Select the button below to load an ontology file from the AOAME database</h2></div>
+
+
+    <div class="centered"><button class="button10" style="background-color:#2979FF" (click)="getModelsAndLanguagesMultipleSelectionFromGithub()">Import</button></div><br><br>
+      <div><h2>Select the button below to load an ontology file from your computer</h2></div>
+      <app-file-upload></app-file-upload>
+    </div>
+    </div>
+</div>
+
+<!--    </mat-card-content>
+
+
+  </mat-grid-tile>-->
+
+<!--
+  <mat-grid-tile class="export">
+    <mat-card-content>-->
+  <div class="col-md-6">
+    <div class="export">
+      <div class="transbox">
+      <h1 style="text-align:center">Export</h1>
+      <div><h2>Select the button "Full Export" to download the complete model with all the ontology.</h2></div>
+      <div class="centered"><button class="button10" style="background-color:#2979FF" (click)="getModelsAndLanguages()">Full Export</button></div><br><br>
+      <div><h2>Select the button "Advanced Export" to download a selection of the model and ontology</h2></div>
+        <div class="centered"><button class="button10" style="background-color:#2979FF" (click)="getModelsAndLanguagesMultipleSelection()">Advanced Export</button></div>
+    </div>
+      </div>
+  </div>
+
+</div>
+<!--
+    </mat-card-content>
+    <button style="height: fit-content; align-self: center" (click)="getModelsAndLanguagesADVANCEDwithDistinction()">Advanced Export</button>-->
+
+<!--
+   </mat-grid-tile>
+</mat-grid-list>
+-->
+<!--<button style="height: fit-content; align-self: center" (click)="LoadModelsAndLanguagesMultipleSelection()">Load languages into multiple selection</button>-->
+
+</body>
+</html>

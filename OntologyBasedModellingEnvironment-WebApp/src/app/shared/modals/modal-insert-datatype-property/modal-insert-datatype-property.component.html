@@ -1,0 +1,93 @@
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+      <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+      <h2>Attributes for {{data.paletteElement.label}}</h2>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+
+    <h2 class="mat-display-2">Create New Attribute</h2>
+    <mat-card>
+
+      <mat-accordion>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Create new DataType</mat-panel-title>
+          <mat-panel-description>String, Integer, Boolean, Date...</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Label" name="input_label" [(ngModel)]="datatypeProperty.label" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Type of value" [(ngModel)]="datatypeProperty.range">
+            <mat-option value="xsd:boolean">Boolean</mat-option>
+            <mat-option value="xsd:date">Date</mat-option>
+            <mat-option value="xsd:dateTime">DateTime</mat-option>
+            <mat-option value="xsd:decimal">Decimal</mat-option>
+            <mat-option value="xsd:integer">Integer</mat-option>
+            <mat-option value="xsd:string">String</mat-option>
+            <mat-option value="rdf:HTML">HTML</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox [(ngModel)]="datatypeProperty.isAvailableToModel">Available to model</mat-checkbox>
+
+        <!--<mat-form-field class="full-width">
+        <input matInput placeholder="Set a default value (optional)">
+      </mat-form-field>-->
+
+        <mat-action-row>
+          <button  mat-raised-button color="primary" (click)="insertNewProperty()">Create Attribute</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+      <!--<mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" >
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Create new ObjectProperty
+          </mat-panel-title>
+          <mat-panel-description>
+            Refers to an existing concept
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Label">
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-select disabled="false" placeholder="Range Object">
+            <mat-option value="Activity Task">Activity Task</mat-option>
+            <mat-option value="Business Rule Task">Business Rule Task</mat-option>
+            <mat-option value="Call Activity">Call Activity</mat-option>
+            <mat-option value="Confirm Transfer">Confirm Transfer</mat-option>
+            <mat-option value="Exclusive Gateway">Exclusive Gateway</mat-option>
+            <mat-option value="Finalize KoGu">Finalize KoGu</mat-option>
+            <mat-option value="Make Disposition Of Case">Make Disposition Of Case</mat-option>
+            <mat-option value="Send Task">Send Task</mat-option>
+            <mat-option value="User Task">User Task</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-action-row>
+          <button  mat-raised-button color="primary" (click)="createDataObject()">Create DataObject Property</button>
+        </mat-action-row>
+      </mat-expansion-panel> -->
+      </mat-accordion>
+    </mat-card>
+
+
+
+
+
+
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions layout="row">
+    <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+    <!--<button mat-raised-button color="primary" (click)="insertNewProperty()" style="margin-right:20px;" >Ok</button> -->
+  </mat-dialog-actions>
+

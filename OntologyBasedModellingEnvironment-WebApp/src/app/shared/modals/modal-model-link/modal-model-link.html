@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Manage Link to a model</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-select [(ngModel)]="selectedModel">
+      <mat-option *ngFor="let model of models" [value]="model">{{model.label}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="delete()">Delete</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

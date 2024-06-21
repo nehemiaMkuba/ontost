@@ -1,0 +1,9 @@
+/target/
+/.idea/
+/.run/
+/OntologyBasedModellingEnvironment-WebService.iml
+
+# eclipse project file
+.settings/
+.classpath
+.project

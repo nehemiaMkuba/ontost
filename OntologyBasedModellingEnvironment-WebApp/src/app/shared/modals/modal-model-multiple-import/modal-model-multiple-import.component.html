@@ -1,0 +1,50 @@
+<html>
+<head>
+
+  <title>Multiple Selection</title>
+
+  <br>
+
+</head>
+
+<body ng-app="sample">
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Select language to import</h2>
+  </div>
+
+</mat-toolbar>
+<br>
+<div><ng-multiselect-dropdown
+  [placeholder]="'Select a prefix'"
+  [settings]="dropdownSettings"
+  [data]="dropdownList"
+  [(ngModel)]="selectedItems"
+  (onSelect)="onItemSelect($event)"
+  (onSelectAll)="onSelectAll($event)"
+>
+</ng-multiselect-dropdown>
+</div>
+
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+   <button mat-button (click)="postLanguagesSelectedOnFuseki()">Import</button>
+</mat-dialog-actions>
+<br>
+<!--Only display the next string if the dropdown list is not loaded -->
+<div id="myDIV" style="display: none">Please close and re-open the dialog window to load prefixes</div>
+
+
+<br>
+<br>
+<br>
+
+<!-- This code allow to show the upload from local button .<app-file-upload></app-file-upload>-->
+
+
+
+
+</body>
+</html>
+
+

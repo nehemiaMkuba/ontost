@@ -1,0 +1,38 @@
+<div class="flex-container" fxLayout="row">
+
+<!--    <div class="palette-area">-->
+<!--      <app-palette-area-->
+<!--        (sendElementFromPalette)="sendElementToCanvas($event)"-->
+<!--        (showPaletteElementPropertyModal)="togglePaletteElementPropertiesModal($event)"-->
+<!--        (showExtendPaletteElementModal)="toggleExtendPaletteElementModal($event)"-->
+<!--        (showEditPaletteElementModal)="toggleEditPaletteElementModal($event)"-->
+<!--        (showCreateDomainElementModal)="toggleCreateDomainElementModal($event)"-->
+<!--        (showActivityElementPropertyModal)="toggleActivityElementPropertyModal($event)">-->
+<!--      </app-palette-area>-->
+<!--    </div>-->
+
+<!--  <div class="modelling-area">-->
+<!--    <app-modelling-area [new_element] = "new_element"-->
+<!--                        (showElementPropertyModal)="toggleInstancePropertiesModal($event)">-->
+
+<!--    </app-modelling-area>-->
+<!--  </div>-->
+
+  <div class="palette-area">
+    <app-palette-area-bpmn (sendElementFromPalette)="sendElementToCanvas($event)"></app-palette-area-bpmn>
+  </div>
+
+  <div class="modelling-area">
+    <app-modelling-area-bpmn [new_element]="new_element">
+                             (showElementPropertyModal)="toggleInstancePropertiesModal($event)">
+
+    </app-modelling-area-bpmn>
+  </div>
+
+</div>
+
+<!--<div class="fullWindow" ng-cloak><app-modal-instance-properties [showMe]="showProp"></app-modal-instance-properties></div> -->
+
+
+
+

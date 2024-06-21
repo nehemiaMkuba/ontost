@@ -1,0 +1,30 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Show visualisations of {{modelingLanguageConstructInstanceId}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-table [dataSource]="otherVisualisations" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="modelId">
+      <mat-header-cell *matHeaderCellDef> Model ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modelId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modelLabel">
+      <mat-header-cell *matHeaderCellDef> Model Label </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modelLabel}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="shape">
+      <mat-header-cell *matHeaderCellDef> Shape </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.shape}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</mat-dialog-actions>

@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Edit Model label</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="model.label">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSave()">Save</button>
+</mat-dialog-actions>

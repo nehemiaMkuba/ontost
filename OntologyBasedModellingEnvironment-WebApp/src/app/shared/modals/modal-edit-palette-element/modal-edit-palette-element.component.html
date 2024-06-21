@@ -1,0 +1,330 @@
+<form>
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+      <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+      <h2 class="mat-display-2">Edit</h2>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+    <mat-tab-group mat-dynamic-height mat-border-bottom>
+      <mat-tab label={{data.paletteElement.label}}>
+        <h3>Edit {{data.paletteElement.label}}</h3>
+        <mat-card>
+          <form class="form">
+
+            <div layout="row">
+              <mat-form-field>
+                <input matInput placeholder="Prefix" name="input_prefix" [(ngModel)]="data.paletteElement.languagePrefix" [value]="data.paletteElement.languagePrefix" disabled>
+              </mat-form-field>
+
+
+              <mat-form-field>
+                <input matInput placeholder="New Label" name="input_label" [(ngModel)]="currentPaletteElement.label" [value]="currentPaletteElement.label" required>
+              </mat-form-field>
+
+            </div>
+
+            <div layout="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Comment" name="input_comment" [(ngModel)]="currentPaletteElement.comment" [value]="currentPaletteElement.comment">
+              </mat-form-field>
+            </div>
+
+            <!--div layout="row"-->
+              <!--<mat-form-field class="full-width">
+                <mat-select placeholder="Semantic Domain Element" name="input_domainOntology" multiple [(ngModel)]="data.paletteElement.representedDomainClass" >
+                  <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id" >{{class.label}}</mat-option>
+                </mat-select>
+              </mat-form-field>-->
+              <!--<ngx-select-dropdown name="select_domainOntology" (change)="selectionChanged($event)" [multiple]="true" [(ngModel)]="data.paletteElement.representedDomainClass" [config]="config1" [options]="mService.domainClasses">
+
+              </ngx-select-dropdown>
+              <button mat-raised-button color="primary" (click)="openCreateDomainElementModalFromEdit(data.paletteElement)">Create New Domain Element</button>-->
+            <!--/div-->
+
+            <div layout="row">
+
+              <div *ngIf="data.paletteElement.type != 'PaletteConnector'">
+                <input #imageInput1
+                       type="file"
+                       accept="image/*"
+                       (change)="processImageUpload(imageInput1, 'canvas')">
+              </div>
+
+              <mat-form-field *ngIf="data.paletteElement.type != 'PaletteConnector'">
+
+                <mat-select [(ngModel)]="currentPaletteElement.thumbnailURL" placeholder="Palette Image" name="image" required>
+                  <mat-option *ngFor="let image of imageList" [value]="image">
+                    <img class="thumbnail" src="{{imageRoot}}{{data.paletteElement.paletteCategory.split('#')[1]}}/{{image}}">
+                    {{image}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+              <div *ngIf="data.paletteElement.type != 'PaletteConnector'">
+                <input #imageInput2
+                       type="file"
+                       accept="image/*"
+                       (change)="processImageUpload(imageInput2, 'thumbnail')">
+              </div>
+              <mat-form-field *ngIf="data.paletteElement.type != 'PaletteConnector'">
+
+                <mat-select [(ngModel)]="currentPaletteElement.imageURL" placeholder="Canvas Image" name="image" required>
+                    <mat-option *ngFor="let image of imageList" [value]="image">
+                      <img class="thumbnail" src="{{imageRoot}}{{data.paletteElement.paletteCategory.split('#')[1]}}/{{image}}">
+                      {{image}}
+                    </mat-option>
+                  </mat-select>
+              </mat-form-field>
+
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.fromArrow" placeholder="From Arrow" name="arrow.from" required>
+                  <mat-option *ngFor="let arrow of arrowHeads" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Arrows/' + arrow + '.PNG'"  [alt]="arrow" >
+                    {{arrow}}
+                  </mat-option>
+                  <mat-option [value]="undefined">None</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.toArrow" placeholder="To Arrow" name="arrow.to" required>
+                  <mat-option *ngFor="let arrow of arrowHeads" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Arrows/' + arrow + '.PNG'"  [alt]="arrow" >
+                    {{arrow}}
+                  </mat-option>
+                  <mat-option [value]="undefined">None</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.arrowStroke" placeholder="Arrow Stroke" name="arrow.stroke" required>
+                  <mat-option *ngFor="let arrow of arrowStrokes" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Strokes/' + arrow + '.PNG'"  [alt]="arrow" >
+                    {{arrow}}
+                  </mat-option>
+                  <mat-option [value]="undefined">None</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <br/>
+            <div layout="row">
+              <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+              <button mat-raised-button color="primary" (click)="editElementInOntology()" style="margin-right:20px;" >Save</button>
+            </div>
+
+            <br />
+
+          </form>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Datatype">
+        <h3>Edit Datatype Property</h3>
+        <mat-dialog-actions layout="row">
+          <button mat-raised-button color="accent" (click)="openInsertNewProperty(data.paletteElement)">Insert new Datatype Property</button>
+        </mat-dialog-actions>
+        <mat-card>
+          <mat-accordion *ngFor="let element of datatypeProperties">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{element.label}}</mat-panel-title>
+                <mat-panel-description><b>Range</b>: <i>{{element.range}}</i></mat-panel-description>
+              </mat-expansion-panel-header>
+              <<mat-action-row>
+                <button mat-raised-button (click)="modifyProperty(data.paletteElement, element)">Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;" (click)="deleteProperty(element)">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--<mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Last name</mat-panel-title>
+                <mat-panel-description>DataType</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label><b>Range</b>: <i>String</i></label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Date of birth</mat-panel-title>
+                  <mat-panel-description>DataType</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label><b>Range</b>: <i>Date</i></label>
+                <mat-action-row>
+                  <button mat-raised-button>Modify</button>
+                  <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+                </mat-action-row>
+              </mat-expansion-panel> -->
+
+          </mat-accordion>
+          <div layout="row">
+            <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+          </div>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab label="Bridging Connector">
+        <h3>Edit Bridging Connector (Object Property)</h3>
+        <mat-dialog-actions layout="row">
+          <button mat-raised-button color="accent" (click)="openInsertNewBridgingConnector(data.paletteElement)">Insert new Bridging Connector</button>
+        </mat-dialog-actions>
+        <mat-card>
+          <mat-accordion *ngFor="let element of bridgingConnectors">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{element.label}}</mat-panel-title>
+                <mat-panel-description><b>Range</b>: <i>{{element.range}}</i></mat-panel-description>
+              </mat-expansion-panel-header>
+              <<mat-action-row>
+              <button mat-raised-button (click)="modifyBridgingConnector(data.paletteElement, element)">Modify</button>
+              <button mat-raised-button color="warn" style="margin-right:20px;" (click)="deleteBridgingConnector(element)">Delete</button>
+            </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--<mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Last name</mat-panel-title>
+                <mat-panel-description>DataType</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label><b>Range</b>: <i>String</i></label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Date of birth</mat-panel-title>
+                  <mat-panel-description>DataType</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label><b>Range</b>: <i>Date</i></label>
+                <mat-action-row>
+                  <button mat-raised-button>Modify</button>
+                  <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+                </mat-action-row>
+              </mat-expansion-panel>-->
+
+          </mat-accordion>
+          <div layout="row">
+            <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+          </div>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Semantic Mapping">
+        <h3>Edit Semantic Mapping (Object Property)</h3>
+        <mat-dialog-actions layout="row">
+          <button mat-raised-button color="accent" (click)="openInsertNewSemanticMapping(data.paletteElement)">Insert new Semantic Mapping</button>
+        </mat-dialog-actions>
+        <mat-card>
+          <mat-accordion *ngFor="let element of semanticMappings">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{element.label}}</mat-panel-title>
+                <mat-panel-description><b>Range</b>: <i>{{element.range}}</i></mat-panel-description>
+              </mat-expansion-panel-header>
+              <<mat-action-row>
+              <button mat-raised-button (click)="modifySemanticMapping(data.paletteElement, element)">Modify</button>
+              <button mat-raised-button color="warn" style="margin-right:20px;" (click)="deleteSemanticMapping(element)">Delete</button>
+            </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--<mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Last name</mat-panel-title>
+                <mat-panel-description>DataType</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label><b>Range</b>: <i>String</i></label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Date of birth</mat-panel-title>
+                  <mat-panel-description>DataType</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label><b>Range</b>: <i>Date</i></label>
+                <mat-action-row>
+                  <button mat-raised-button>Modify</button>
+                  <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+                </mat-action-row>
+              </mat-expansion-panel>-->
+
+          </mat-accordion>
+          <div layout="row">
+            <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+          </div>
+        </mat-card>
+      </mat-tab>
+
+      <mat-tab label="SHACL Constraints">
+        <h3>Edit SHACL Constraints (Constraint Property)</h3>
+        <mat-dialog-actions layout="row">
+          <button mat-raised-button color="accent" (click)="openInsertNewShaclConstraint(data.paletteElement)">Insert new SHACL Constraint</button>
+        </mat-dialog-actions>
+        <mat-card>
+          <mat-accordion *ngFor="let element of shaclConstraints">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>{{element.name}}</mat-panel-title>
+                <mat-panel-title style="word-wrap: break-word; word-break: break-all;">{{element.id.split('#')[1]}}</mat-panel-title>
+                <mat-panel-description ><b>Path: </b><i style="word-wrap: break-word; word-break: break-all;">{{element.path.split('#')[1]}}</i></mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-action-row>
+                <!-- Implement if needed
+                <button mat-raised-button (click)="modifySHACLConstraint(data.paletteElement, element)">Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;" (click)="deleteSHACLConstraint(element)">Delete</button>
+                -->
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <!--<mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Last name</mat-panel-title>
+                <mat-panel-description>DataType</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label><b>Range</b>: <i>String</i></label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Date of birth</mat-panel-title>
+                  <mat-panel-description>DataType</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label><b>Range</b>: <i>Date</i></label>
+                <mat-action-row>
+                  <button mat-raised-button>Modify</button>
+                  <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+                </mat-action-row>
+              </mat-expansion-panel>-->
+
+          </mat-accordion>
+          <div layout="row">
+            <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+          </div>
+        </mat-card>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-dialog-content>
+
+
+</form>
+<mat-dialog-actions layout="row">
+
+</mat-dialog-actions>
+
+<!-- https://github.com/angular/material2/issues/5269 -->

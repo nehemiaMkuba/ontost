@@ -1,0 +1,56 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Bridging Connectors for {{data.paletteElement.label}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content style="max-width:800px;max-height:810px; ">
+
+  <h2 class="mat-display-2">Edit Relation</h2>
+  <mat-card class="wide-display">
+
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Edit Selected Bridging Connector</mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Label" name="input_label" [(ngModel)]="editedProperty.label" required>
+        </mat-form-field>
+
+        <!--<mat-form-field class="full-width">
+          <mat-select [(ngModel)]="editedProperty.range" placeholder="Range" name="select_range">
+            <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id">{{class.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>-->
+
+        <ngx-select-dropdown name="select_range" (change)="selectionChanged($event)" [multiple]="false" [(ngModel)]="editedProperty.range" [config]="config2" [options]="mService.modelingLanguageClasses">
+
+        </ngx-select-dropdown>
+
+        <div layout="row">
+
+        <!--<mat-form-field class="full-width">
+          <input matInput placeholder="Edit default value (optional)">
+        </mat-form-field>-->
+        </div>
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-card>
+
+
+
+
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions layout="row">
+  <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="editProperty()" style="margin-right:20px;" >Ok</button>
+</mat-dialog-actions>
+

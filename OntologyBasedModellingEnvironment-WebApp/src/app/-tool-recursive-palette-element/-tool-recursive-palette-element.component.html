@@ -1,0 +1,87 @@
+<ul *ngFor="let sbchild of child.childElements; let indexElement=index;">
+  <li *ngIf="(sbchild.parentElement == child.id) && (sbchild.hiddenFromPalette == false)" class="NthLevelElement">
+
+    <a *ngIf="sbchild.type != 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="sbchild" (click)="addNewShape(sbchild)">
+      <ng-container *ngIf="!isBPMNNotationSelected && !isElementMappedToBPMNMappers(sbchild)">
+        <img class="thumbnail"  src="{{imageRoot}}{{categorySuffix}}/{{sbchild.thumbnailURL}}"  />
+        {{sbchild.label}}
+      </ng-container>
+      <ng-container *ngIf="isBPMNNotationSelected && !isElementMappedToBPMNMappers(sbchild)">
+        <img class="thumbnail" style="width: 35px; margin-left: 18px; margin-right: 28px;" src="{{imageRoot}}{{categorySuffix}}/{{sbchild.thumbnailURL}}"  />
+        {{sbchild.label}}
+      </ng-container>
+      <div style="width: auto; display: flex; justify-content: space-between; height: 45px;" *ngIf="isBPMNNotationSelected && isElementMappedToBPMNMappers(sbchild)">
+        <div id="{{parentPaletteId}}-{{indexElement}}" style="width: 85px; position: relative; height: auto;" class="bpmn-canvas-container"></div>
+        <p style="word-wrap:break-word; display: flex;
+          justify-content: flex-start;
+          flex-direction: row;">{{sbchild.label}}</p>
+
+      </div>
+    </a>
+    <a *ngIf="sbchild.type == 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="sbchild" (click)="addNewShape(sbchild)">
+      <img *ngIf="sbchild.fromArrow" class="thumbnail-arrow-head" [src]="'../assets/images/Arrows/' + sbchild.fromArrow + '.PNG'" >
+      <img class="thumbnail-arrow-stroke" [src]="'../assets/images/Strokes/' + sbchild.arrowStroke + '.PNG'" >
+      <img *ngIf="sbchild.toArrow" class="thumbnail-arrow-head" [src]="'../assets/images/Arrows/' + sbchild.toArrow + '.PNG'" >
+    </a>
+
+<!--    <a [contextMenu]="elementRightClickMenu" [contextMenuSubject]="sbchild" (click)="addNewShape(sbchild)">-->
+<!--    <img  class="thumbnail" src="{{imageRoot}}{{categorySuffix}}/{{sbchild.thumbnailURL}}" />-->
+<!--      {{sbchild.label}}-->
+<!--    </a>-->
+
+    <app--tool-recursive-palette-element (showActivityElementPropertyModal1)="toggleActivityElementPropertyModal($event)"
+                                         (showExtendPaletteElementModal1)="toggleExtendPaletteElementModal($event)"
+                                         (showEditPaletteElementModal1)="toggleEditPaletteElementModal($event)"
+                                         (sendElementFromRecursiveElement)="addNewShape($event)" [child]="sbchild"
+                                         [isBPMNNotationSelected]="isBPMNNotationSelected" [parentPaletteId]="parentPaletteId + '-' + indexElement"></app--tool-recursive-palette-element>
+  </li>
+</ul>
+
+<context-menu>
+  <ng-template let-sbchild contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+    Extend {{sbchild.label}}
+  </ng-template>
+  <ng-template contextMenuItem [subMenu]="saySubMenu">
+    Edit
+  </ng-template>
+  <context-menu #saySubMenu>
+    <ng-template contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+      Add new Attribute / Property
+    </ng-template>
+    <ng-template let-sbchild contextMenuItem (execute)="showMessage('Hola, ' + $event.item.name)">
+      Edit {{sbchild.label}}
+    </ng-template>
+  </context-menu>
+  <ng-template let-element contextMenuItem (execute)="showMessage('Hi, ' + $event.item.name)">
+    Remove from palette
+  </ng-template>
+</context-menu>
+
+<context-menu #elementRightClickMenu>
+  <ng-template let-element contextMenuItem (execute)="openExtendPaletteElementModal($event.item)">
+    Extend {{element.label}}
+  </ng-template>
+  <ng-template let-element contextMenuItem (execute)="openEditPaletteElementModal($event.item)">
+    Edit {{element.label}}
+  </ng-template>
+  <!-- <ng-template contextMenuItem [subMenu]="saySubMenu">
+    Edit
+  </ng-template>
+  <context-menu #saySubMenu>
+    <ng-template contextMenuItem (execute)="openActivityElementProperty($event.item)">
+      Add new Attribute
+    </ng-template>
+    <ng-template let-element contextMenuItem (execute)="openExtendPaletteElementModal($event.item)">
+      Edit {{element.label}}
+    </ng-template>
+  </context-menu> -->
+<!--  <ng-template let-element contextMenuItem (execute)="hideFromPalette($event.item)">-->
+<!--    Hide-->
+<!--  </ng-template>-->
+  <ng-template let-element contextMenuItem (execute)="removeFromPalette($event.item)">
+    Delete
+  </ng-template>
+  <ng-template let-element contextMenuItem (execute)="showInstantiatedElements($event.item)">
+    Show Instances
+  </ng-template>
+</context-menu>

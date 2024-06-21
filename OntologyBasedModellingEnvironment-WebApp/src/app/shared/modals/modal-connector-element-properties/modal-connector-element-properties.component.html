@@ -1,0 +1,127 @@
+<form>
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+      <h2>{{data.paletteElement.label}}</h2>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+    <mat-tab-group mat-dynamic-height mat-border-bottom>
+      <mat-tab label="Graphical/Palette">
+
+
+
+
+        <h2 class="mat-display-2">Graphical/Palette description</h2>
+        <mat-card>
+          <form class="form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Label">
+            </mat-form-field>
+
+            <mat-checkbox ng-model="rootElement">Palette root element</mat-checkbox>
+
+            <mat-form-field class="full-width">
+              <mat-select disabled="true" placeholder="Select the parent element">
+                <mat-option value="Activity Task">Activity Task</mat-option>
+                <mat-option value="Business Rule Task">Business Rule Task</mat-option>
+                <mat-option value="Call Activity">Call Activity</mat-option>
+                <mat-option value="Confirm Transfer">Confirm Transfer</mat-option>
+                <mat-option value="Exclusive Gateway">Exclusive Gateway</mat-option>
+                <mat-option value="Finalize KoGu">Finalize KoGu</mat-option>
+                <mat-option value="Make Disposition Of Case">Make Disposition Of Case</mat-option>
+                <mat-option value="Send Task">Send Task</mat-option>
+                <mat-option value="User Task">User Task</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Category">
+                <mat-option value="Activities">Activities</mat-option>
+                <mat-option value="Data">Data</mat-option>
+                <mat-option value="Events">Events</mat-option>
+                <mat-option value="Gateways">Gateways</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input type="url" matInput placeholder="URL base image">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input type="url" matInput placeholder="URL arrow image">
+            </mat-form-field>
+
+            <label style="white-space: nowrap">Pick the line color: <input type="color" placeholder="Line color"></label>
+
+            <mat-form-field class="full-width">
+              <input type="number" matInput placeholder="Line width">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Type of line">
+                <mat-option value="Dotted">Dotted</mat-option>
+                <mat-option value="Dashed">Dashed</mat-option>
+                <mat-option value="Solid">Solid</mat-option>
+                <mat-option value="Double">Double</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </form>
+        </mat-card>
+      </mat-tab>
+
+
+
+
+      <mat-tab label="Class Properties">
+        <h2 class="mat-display-2">Class Properties</h2>
+        <mat-dialog-actions layout="row">
+          <!-- Heroku difference -->
+          <button mat-raised-button color="accent" (click)="try()">Insert new property</button>
+          <button mat-raised-button color="accent">Manage connection combinations</button>
+        </mat-dialog-actions>
+        <mat-card>
+          <form class="form">
+            <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Source</mat-panel-title>
+                <mat-panel-description>Object Property</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label>Range: Activity Task</label><br />
+              <label>Range: Exclusive Gateway</label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>Target</mat-panel-title>
+                <mat-panel-description>ObjectProperty</mat-panel-description>
+              </mat-expansion-panel-header>
+              <label>Range: End Event</label><br />
+              <label>Range: Activity Task</label>
+              <mat-action-row>
+                <button mat-raised-button>Modify</button>
+                <button mat-raised-button color="warn" style="margin-right:20px;">Delete</button>
+              </mat-action-row>
+            </mat-expansion-panel>
+
+            </mat-accordion>
+          </form>
+        </mat-card>
+      </mat-tab>
+
+
+    </mat-tab-group>
+  </mat-dialog-content>
+
+  <mat-dialog-actions layout="row">
+    <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+    <button mat-raised-button color="primary" ng-click="answer('useful')" style="margin-right:20px;" >Ok</button>
+  </mat-dialog-actions>
+</form>
+
+<!-- https://github.com/angular/material2/issues/5269 -->

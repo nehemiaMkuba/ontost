@@ -1,0 +1,116 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+    <h2>Constraints for {{data.paletteElement.label}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content style="max-width:800px;max-height:810px; ">
+
+  <h2 class="mat-display-2">Create New Constraint</h2>
+  <mat-card>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Create new ShaclProperty</mat-panel-title>
+          <!--<mat-panel-description>Refers to an existing concept</mat-panel-description>-->
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Name" name="input_name" [(ngModel)]="shaclConstraint.name" required>
+        </mat-form-field>
+
+        <!--<mat-form-field class="full-width">
+          <mat-select [(ngModel)]="objectProperty.range" placeholder="Range" name="select_range">
+            <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id">{{class.label}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>-->
+
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Description" [(ngModel)]="shaclConstraint.description">
+          </mat-form-field>
+        </div>
+
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Type of value" [(ngModel)]="shaclConstraint.datatype">
+            <mat-option value="xsd:boolean">Boolean</mat-option>
+            <mat-option value="xsd:date">Date</mat-option>
+            <mat-option value="xsd:dateTime">DateTime</mat-option>
+            <mat-option value="xsd:decimal">Decimal</mat-option>
+            <mat-option value="xsd:integer">Integer</mat-option>
+            <mat-option value="xsd:string">String</mat-option>
+            <mat-option value="rdf:HTML">HTML</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <!--
+                  <mat-panel-title>Cardinality</mat-panel-title>
+
+                    <mat-button-toggle-group class="horizontal-margin " name="cardinality" aria-label="Cardinality" [(ngModel)]="" style="margin-top: 2em; margin-bottom: 2em;">
+                      <<mat-button-toggle value="unlimited">Unlimited [0..*]</mat-button-toggle>
+                      <mat-button-toggle value="optional">Optional [0..1]</mat-button-toggle>
+                      <mat-button-toggle value="exactlyOne">Exactly one [1..1]</mat-button-toggle>
+                      <mat-button-toggle value="oneOrMore">One or more [1..*]</mat-button-toggle>>
+                    </mat-button-toggle-group>
+                  -->
+        <div>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Pattern (regex)" [(ngModel)]="shaclConstraint.pattern" (ngModelChange)="onPatternChange()">
+          </mat-form-field>
+
+          <p  *ngIf="patternError === 'Invalid regex pattern!'" style="padding: 0.5rem; border: 1px; color: #e55353; background-color: #fadddd; border-color: #f7cbcb;" class="alert">
+            {{patternError}}
+          </p>
+
+          <p *ngIf="patternError === 'Valid regex pattern!'" style="padding: 0.5rem; border: 1px; color: #28a745; background-color: #d5f1de; border-color: #c0eace;">
+            {{patternError}}
+          </p>
+        </div>
+        <div class="form-field-group">
+          <mat-form-field class="full-width" style="margin-right: 1em;">
+            <input matInput type="number" placeholder="Minimum Count" name="input_minCount" [(ngModel)]="shaclConstraint.minCount" min="0" pattern="[0-9]+">
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <input matInput type="number" placeholder="Maximum Count" name="input_maxCount" [(ngModel)]="shaclConstraint.maxCount" min="0" pattern="[0-9]+">
+          </mat-form-field>
+        </div>
+       <ngx-select-dropdown name="select_path" (change)="selectionChanged($event)" [multiple]="false" [(ngModel)]="shaclConstraint.path" [config]="config" [options]="mService.allProperties" required>
+       </ngx-select-dropdown>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <!--<mat-form-field class="full-width">
+          <input matInput placeholder="Set a default value (optional)">
+        </mat-form-field>-->
+
+        <mat-action-row>
+          <button  mat-raised-button color="primary" (click)="insertNewShaclConstraint()" [disabled]="patternError==='Invalid regex pattern!'">Create Constraint</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+  </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions layout="row">
+  <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="insertNewShaclConstraint()" style="margin-right:20px;" >Ok</button>
+</mat-dialog-actions>
+

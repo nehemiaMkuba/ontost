@@ -1,0 +1,35 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Instances of {{data.representedLanguageClass}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-table [dataSource]="datasource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="modelId">
+      <mat-header-cell *matHeaderCellDef> Model ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modelId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modelLabel">
+      <mat-header-cell *matHeaderCellDef> Model Label </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.modelLabel}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="shapeId">
+      <mat-header-cell *matHeaderCellDef> Shape ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.shapeId}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="instanceId">
+      <mat-header-cell *matHeaderCellDef> Conceptual Element Instance ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.instanceId}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Close</button>
+</mat-dialog-actions>

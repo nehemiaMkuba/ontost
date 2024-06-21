@@ -1,0 +1,85 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+
+<div>
+  <!-- Heroku difference -->
+  <mat-select class="modelling-language" placeholder="Select" (selectionChange)="selectLang($event)">
+    <mat-option *ngFor="let lang of modelingLanguages" [value]="lang.id">{{lang.label}}</mat-option>
+  </mat-select>
+</div>
+
+<div>
+  <!-- Heroku difference -->
+  <mat-select class="modelling-language-view" placeholder="Select" (selectionChange)="selectView($event)">
+    <mat-option *ngFor="let view of modelingViews" [value]="view.id">{{view.label}}</mat-option>
+  </mat-select>
+</div>
+
+<div class="category" [contextMenu]="paletteRightClickMenu" *ngFor="let category of paletteCategories">
+  <p class="category-title">{{category.label}}</p>
+  <nav class="element-container">
+    <ng-container *ngFor="let element of mService.paletteElements">
+      <ul class="element" *ngIf="(element.paletteCategory == category.id && element.hiddenFromPalette == false)">
+        <li class="paletteElement" >
+          <a *ngIf="element.type != 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="element"  (click)="addNewShape(element)">
+            <img class="thumbnail"  src="{{imageRoot}}{{category.idSuffix}}/{{element.thumbnailURL}}" />
+          </a>
+          <a *ngIf="element.type == 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="element"  (click)="addNewShape(element)">
+            <img *ngIf="element.fromArrow" class="thumbnail-arrow-head" [src]="'../../../../../assets/images/Arrows/' + element.fromArrow + '.PNG'" >
+            <img class="thumbnail-arrow-stroke" [src]="'../assets/images/Strokes/' + element.arrowStroke + '.PNG'" >
+            <img *ngIf="element.toArrow" class="thumbnail-arrow-head" [src]="'../../../../../assets/images/Arrows/' + element.toArrow + '.PNG'" >
+          </a>
+          <app--tool-recursive-palette-element (showActivityElementPropertyModal1)="toggleActivityElementPropertyModal($event)"
+                                               (showExtendPaletteElementModal1)="toggleExtendPaletteElementModal($event)"
+                                               (showEditPaletteElementModal1)="toggleEditPaletteElementModal($event)"
+                                               (sendElementFromRecursiveElement)="addNewShape($event)" [child]="element"></app--tool-recursive-palette-element>
+        </li>
+      </ul>
+    </ng-container>
+  </nav>
+</div>
+
+
+<context-menu #elementRightClickMenu>
+  <ng-template let-element contextMenuItem (execute)="openExtendPaletteElementModal($event.item)">
+    Extend {{element.label}}
+  </ng-template>
+  <ng-template let-element contextMenuItem (execute)="openEditPaletteElementModal($event.item)">
+    Edit {{element.label}}
+  </ng-template>
+  <!-- <ng-template contextMenuItem [subMenu]="saySubMenu">
+    Edit
+  </ng-template>
+  <context-menu #saySubMenu>
+    <ng-template contextMenuItem (execute)="openActivityElementProperty($event.item)">
+      Add new Attribute
+    </ng-template>
+    <ng-template let-element contextMenuItem (execute)="openEditPaletteElementModal($event.item)">
+      Edit {{element.label}}
+    </ng-template>
+  </context-menu> -->
+  <ng-template let-element contextMenuItem (execute)="hideFromPalette($event.item)">
+    Hide
+  </ng-template>
+  <!--<ng-template let-element contextMenuItem (execute)="removeFromPalette($event.item)">
+    Delete {{element.label}}
+  </ng-template>-->
+  <ng-template let-element contextMenuItem (execute)="showInstantiatedElements($event.item)">
+    Show Instances
+  </ng-template>
+</context-menu>
+
+
+<context-menu #paletteRightClickMenu>
+  <!-- Heroku difference -->
+  <ng-template contextMenuItem (execute)="addNewPaletteElement()">
+    Add new element to the Palette
+  </ng-template>
+  <ng-template let-element contextMenuItem (execute)="openCreateDomainElementModal($event.item)">
+    Create new Domain Ontology Element
+  </ng-template>
+  <!-- Heroku difference -->
+  <ng-template contextMenuItem (execute)="managePaletteElements()">
+    Manage Elements
+  </ng-template>
+
+</context-menu>

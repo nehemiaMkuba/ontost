@@ -1,0 +1,47 @@
+<h2 class="mat-title" style="padding-top: 1rem">Model element attributes</h2>
+<span class="mat-caption">ID: {{data.elementDetail.modelingLanguageConstructInstance}}</span><br/>
+<span class="mat-caption">Instantiation Type: {{data.elementDetail.abstractElementAttributes.instantiationType}}</span>
+
+<mat-table *ngIf="modelElementAttributeDatasource !== undefined && modelElementAttributeDatasource.data.getValue().length > 0" [dataSource]="modelElementAttributeDatasource" class="mat-elevation-z8">
+
+  <ng-container matColumnDef="key">
+    <mat-header-cell *matHeaderCellDef> Relation </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.relation.relation}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="value">
+    <mat-header-cell *matHeaderCellDef> Value </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <input *ngIf="element.selectorOptions === undefined" type="text" [(ngModel)]="element.relation.value" />
+      <mat-form-field *ngIf="element.selectorOptions !== undefined">
+        <mat-select [compareWith]="compareModelValues" [(ngModel)]="element.selectedValue">
+          <mat-option *ngFor="let option of element.selectorOptions" [value]="option">{{option.value + ' (' + option.id + ')'}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
+    <mat-cell *matCellDef="let element">
+      <button (click)="removeRelation(element)">Remove</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumnsModelAttrs"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumnsModelAttrs;"></mat-row>
+</mat-table>
+
+<div *ngIf="options !== undefined && options.length > 0">
+  <mat-form-field>
+    <mat-select [(ngModel)]="selectedOption">
+      <mat-option *ngFor="let option of options" [value]="option">{{option.relationPrefix + ':'  + option.relation}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button class="mat-button" (click)="addRelation()">Add Relation</button>
+</div>
+
+<div class="button-row">
+  <button class="mat-button" (click)="save()">Save</button>
+  <button class="mat-button" (click)="close()">Close</button>
+</div>

@@ -1,0 +1,43 @@
+<div class="outer-margin">
+  <button mat-raised-button color="primary" (click)="createNewDiagram()">Create +</button>
+
+  <button mat-raised-button color="primary"  (click)="createNewOntologyLanguage()" style="float:right;">Create Ontology Language</button>
+
+
+  <mat-divider class="horizontal-margin"></mat-divider>
+
+  <mat-grid-list cols="5" rowHeight="16rem" gutterSize="1rem">
+    <mat-grid-tile [colspan]="1" [rowspan]="1" *ngFor="let model of models; index as i">
+      <mat-card class="diagram-card" mat-ripple [matRippleDisabled]="rippleDisabled" (click)="openModel(model)">
+        <md-card-header>
+          <md-card-title>{{model.label}} </md-card-title>
+          <div fxFlex></div>
+          <button mat-icon-button aria-label="action menu button">
+            <mat-icon [matMenuTriggerFor]="menu" [matMenuTriggerData]="{ model: model }" (menuClosed)="toggleRipple()"
+                      (click)="$event.stopPropagation();" (mousedown)="toggleRipple()">more_vert
+            </mat-icon>
+          </button>
+        </md-card-header>
+
+        <!--  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Empty background">-->
+        <div class="empty-blue-div"></div>
+        <mat-card-footer></mat-card-footer>
+      </mat-card>
+
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</div>
+
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-model="model">
+    <button mat-menu-item (click)="editDiagram(model)">
+      <mat-icon>edit</mat-icon>
+      <span>Edit</span>
+    </button>
+    <button mat-menu-item (click)="deleteDiagram(model)">
+      <mat-icon>delete</mat-icon>
+      <span>Delete</span>
+    </button>
+  </ng-template>
+</mat-menu>

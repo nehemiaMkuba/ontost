@@ -1,0 +1,66 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+    <h2>Relations for {{data.paletteElement.label}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content style="max-width:800px;max-height:810px; ">
+
+  <h2 class="mat-display-2">Create New Relation</h2>
+  <mat-card>
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Create new ObjectProperty</mat-panel-title>
+          <!--<mat-panel-description>Refers to an existing concept</mat-panel-description>-->
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Label" name="input_label" [(ngModel)]="objectProperty.label" required>
+        </mat-form-field>
+
+        <!--<mat-form-field class="full-width">
+          <mat-select [(ngModel)]="objectProperty.range" placeholder="Range" name="select_range">
+            <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id">{{class.label}}</mat-option>
+          </mat-select>
+
+        </mat-form-field>-->
+        <ngx-select-dropdown name="select_range"  (change)="selectionChanged($event)" [multiple]="false" [(ngModel)]="objectProperty.range" [config]="config" [options]="mService.domainClasses">
+
+        </ngx-select-dropdown>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <button mat-raised-button color="primary" (click)="openCreateDomainElementModalFromExtend(data.paletteElement)">Create New Domain Element</button>
+
+        <!--<mat-form-field class="full-width">
+          <input matInput placeholder="Set a default value (optional)">
+        </mat-form-field>-->
+
+        <mat-action-row>
+          <button  mat-raised-button color="primary" (click)="insertNewProperty()">Create Relation</button>
+        </mat-action-row>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+  </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions layout="row">
+  <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="insertNewProperty()" style="margin-right:20px;" >Ok</button>
+</mat-dialog-actions>
+

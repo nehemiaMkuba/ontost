@@ -1,0 +1,30 @@
+.diagram-card {
+  width: calc(100%);
+}
+
+.empty-blue-div {
+  background-size: cover;
+  background-color: #e3f2fd;
+  width: calc(100%);
+  height: 7.375rem;
+}
+
+.horizontal-margin {
+  margin: 1rem 0;
+}
+
+md-card-title {
+  font-size: 1rem;
+  padding-top: 0.6rem;
+  padding-left: 1rem;
+  width: 100%
+}
+
+.mat-card {
+  cursor: pointer;
+  padding: 0;
+}
+
+.outer-margin {
+  margin: 1rem;
+}

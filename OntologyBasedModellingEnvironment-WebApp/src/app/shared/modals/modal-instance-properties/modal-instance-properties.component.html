@@ -1,0 +1,82 @@
+<form>
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+      <h2>New KoGu Stroke (KoGu Stroke)</h2>
+
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+    <mat-tab-group mat-dynamic-height mat-border-bottom>
+      <mat-tab label="Description">
+        <h2 class="mat-display-2">Description</h2>
+        <mat-card>
+          <form class="form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Label">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Select the representation level">
+                <mat-option value="Instance">Instance</mat-option>
+                <mat-option value="Type">Type</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </form>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Attributes">
+        <h2 class="mat-display-2">Attributes</h2>
+
+          <form class="example-form">
+            <mat-form-field class="full-width">
+              <input matInput placeholder="First Name">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Last Name">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput type="date" placeholder="Date of Birth">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Street & Nr.">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="ZIP Code">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="City">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Canton">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="Master Patient ID">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input matInput placeholder="MPI Patient ID">
+            </mat-form-field>
+          </form>
+
+      </mat-tab>
+      <mat-tab label="Inherited attributes">
+        <h2 class="mat-display-2">Inherited attributes</h2>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+
+  <mat-dialog-actions layout="row">
+    <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus>Cancel</button>
+    <button mat-raised-button color="primary" ng-click="answer('useful')" style="margin-right:20px;" >Ok</button>
+  </mat-dialog-actions>
+   </form>
+
+<!-- https://github.com/angular/material2/issues/5269 -->

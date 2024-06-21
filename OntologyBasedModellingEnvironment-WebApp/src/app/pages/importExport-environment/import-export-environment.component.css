@@ -1,0 +1,80 @@
+.button6:active{
+  top:0.1em;
+}
+
+.button7:active{
+  box-shadow:inset 0 0.6em 2em -0.3em rgba(0,0,0,0.15),inset 0 0 0em 0.05em rgba(255,255,255,0.12);
+}
+
+mat-grid-tile {
+  background: lightblue;
+}
+
+.import {
+  background-image: url("../../../assets/images/import.png");
+  backdrop-filter: blur(5px);
+  background-color: rgba(178, 60, 253, 0.2);
+  background-position: center;
+  padding: 90px 90px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+.import h1{
+
+  color:blue;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+
+.export {
+  background-image: url("../../../assets/images/export.jpg");
+  backdrop-filter: blur(30px);
+  background-color: rgba(178, 60, 253, 0.2);
+  background-position: center;
+  padding: 90px 90px;
+  border-radius: 5px;
+  box-shadow: 0 5px 15px rgba(0,0,0,.5);
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+
+.export h1{
+
+  color:blue;
+  font-size: 50px;
+  font-weight: bold;
+
+}
+
+.import h2{
+  color:black;
+  font-style: italic;
+  font-size: 25px;
+}
+.export h2{
+
+  color:black;
+  font-style: italic;
+  font-size: 25px;
+}
+.centered{
+  display: flex;
+  justify-content: center;
+}
+
+.button10 {
+  background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 12px;
+}

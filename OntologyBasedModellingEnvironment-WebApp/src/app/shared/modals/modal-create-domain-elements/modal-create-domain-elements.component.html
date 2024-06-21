@@ -1,0 +1,40 @@
+<form>
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+      <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+      <h2>Create New Domain Ontology Element</h2>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+    <mat-card>
+      <form class="form">
+
+
+        <div layout="row">
+          <mat-checkbox name="rootElement" [(ngModel)]="domainElement.isRoot">Root element</mat-checkbox>
+
+        <!--<mat-form-field class="full-width">
+          <mat-select placeholder="Parent Class" name="input_domainOntology" [(ngModel)]="domainElement.parentElement" >
+            <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id">{{class.label}}</mat-option>
+          </mat-select>
+        </mat-form-field>-->
+          <ngx-select-dropdown name="select_domainOntology" (change)="selectionChanged($event)" [multiple]="false" [(ngModel)]="domainElement.parentElement" [config]="config" [options]="mService.domainClasses">
+
+          </ngx-select-dropdown>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="New Domain Element" name="input_label" [(ngModel)]="domainElement.label" required>
+        </mat-form-field>
+
+        </div>
+
+
+      </form>
+    </mat-card>
+
+  </mat-dialog-content>
+</form>
+<mat-dialog-actions layout="row">
+  <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="createDomainElementInOntology()" style="margin-right:20px;" >OK</button>
+</mat-dialog-actions>

@@ -1,0 +1,23 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+# TDB
+run/system/tdb.lock
+
+# .gitignore file
+/.idea
+*.iml
+*.iws
+/target/
+/out/
+/build/
+*.log
+*.tmp
+*.bak
+# GitHub Copilot persisted chat sessions
+/copilot/chatSessions

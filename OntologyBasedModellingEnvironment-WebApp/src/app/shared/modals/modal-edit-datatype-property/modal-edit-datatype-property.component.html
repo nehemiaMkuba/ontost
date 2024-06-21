@@ -1,0 +1,58 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+    <h2>Attributes for {{data.paletteElement.label}}</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content style="max-width:800px;max-height:810px; ">
+
+  <h2 class="mat-display-2">Edit Attribute</h2>
+  <mat-card>
+
+    <mat-accordion>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header>
+          <mat-panel-title>Edit Selected Attribute</mat-panel-title>
+          <mat-panel-description>String, Integer, Boolean, Date...</mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Label" name="input_label" [(ngModel)]="editedProperty.label" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-select placeholder="Type of value" [(ngModel)]="editedProperty.range">
+            <mat-option value="xsd:boolean">Boolean</mat-option>
+            <mat-option value="xsd:date">Date</mat-option>
+            <mat-option value="xsd:dateTime">DateTime</mat-option>
+            <mat-option value="xsd:decimal">Decimal</mat-option>
+            <mat-option value="xsd:integer">Integer</mat-option>
+            <mat-option value="xsd:string">String</mat-option>
+            <mat-option value="rdf:HTML">HTML</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-checkbox [(ngModel)]="editedProperty.isAvailableToModel">Available to model</mat-checkbox>
+
+        <!--<mat-form-field class="full-width">
+          <input matInput placeholder="Edit default value (optional)" [(ngModel)]="editedProperty.defaultValue">
+        </mat-form-field>-->
+
+      </mat-expansion-panel>
+
+    </mat-accordion>
+  </mat-card>
+
+
+
+
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions layout="row">
+  <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="editProperty()" style="margin-right:20px;" >Ok</button>
+</mat-dialog-actions>
+

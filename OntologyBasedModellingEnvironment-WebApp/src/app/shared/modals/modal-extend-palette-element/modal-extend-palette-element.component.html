@@ -1,0 +1,247 @@
+<form>
+  <mat-toolbar>
+    <div class="mat-toolbar-tools">
+     <!-- <h2>Extend {{data.paletteElement.label}}</h2>-->
+      <h2>Extend {{data.paletteElement.label}}</h2>
+    </div>
+  </mat-toolbar>
+  <mat-dialog-content style="max-width:800px;max-height:810px; ">
+    <mat-tab-group mat-dynamic-height mat-border-bottom>
+      <mat-tab label="New Modelling Element">
+        <h3 class="mat-display-1">Create new sub-class of {{data.paletteElement.label}}</h3>
+        <mat-card>
+          <form class="form">
+
+            <div layout="row">
+              <mat-form-field>
+                <input matInput placeholder="Parent Element" name="input_parent" [(ngModel)]="data.paletteElement.label" [value]="data.paletteElement.label" disabled>
+              </mat-form-field>
+
+              <mat-form-field>
+                <mat-select [(ngModel)]="currentPaletteElement.languagePrefix" placeholder="Prefix" name="prefix" required>
+                  <mat-option *ngFor="let prefix of mService.namespacePrefixes" [value]="prefix">{{prefix}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+             <mat-form-field>
+                <input matInput placeholder="Child Element" name="input_child" [(ngModel)]="currentPaletteElement.label" [value]="currentPaletteElement.label" required>
+             </mat-form-field>
+
+            </div>
+
+            <div layout="row">
+              <mat-form-field class="full-width" appearance="outline">
+                <input matInput placeholder="Comment" name="input_comment" [(ngModel)]="currentPaletteElement.comment" [value]="currentPaletteElement.comment">
+              </mat-form-field>
+            </div>
+
+            <!--div layout="row"-->
+              <!--<mat-form-field class="full-width">
+                <mat-select placeholder="Semantic Domain Element" name="input_domainOntology" multiple [(ngModel)]="currentPaletteElement.representedDomainClass" >
+                  <mat-option *ngFor="let class of mService.domainClasses" [value]="class.id" >{{class.label}}</mat-option>
+                </mat-select>-->
+                <!--<ngx-select-dropdown name="test_select" (change)="selectionChanged($event)" [multiple]="true" [(ngModel)]="currentPaletteElement.representedDomainClass" [config]="config" [options]="mService.domainClasses">
+
+                </ngx-select-dropdown>-->
+              <!--</mat-form-field>-->
+              <!--<button mat-raised-button color="primary" (click)="openCreateDomainElementModalFromExtend(data.paletteElement)">Create New Domain Element</button>-->
+            <!--/div-->
+
+            <div layout="row">
+
+            <mat-checkbox ng-model="rootElement">Palette root element</mat-checkbox>
+
+
+              <!--<label>Parent Element: {{data.paletteElement.label}}</label>-->
+            <!--<mat-form-field class="full-width">
+              <<mat-select  placeholder="Parent element">
+                <mat-option [value]="data.paletteElement.label">{{data.paletteElement.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>-->
+
+            <!--<mat-form-field>
+              <mat-select disabled="true" [(ngModel)]="data.paletteElement.paletteCategory" placeholder="Category" name="category.label">
+                <mat-option *ngFor="let category of paletteCategories" [value]="category.id">{{category.label}}</mat-option>
+              </mat-select>
+            </mat-form-field>-->
+
+              <mat-form-field>
+                <input matInput placeholder="Category" name="input_category" [(ngModel)]="data.paletteElement.categoryLabel" [value]="data.paletteElement.categoryLabel" disabled>
+              </mat-form-field>
+
+            </div>
+
+            <div layout="row">
+
+              <div *ngIf="data.paletteElement.type != 'PaletteConnector'">
+                <input #imageInput1
+                       type="file"
+                       accept="image/*"
+                       (change)="processImageUpload(imageInput1, 'canvas')">
+              </div>
+
+              <mat-form-field *ngIf="data.paletteElement.type != 'PaletteConnector'">
+
+                <mat-select [(ngModel)]="currentPaletteElement.thumbnailURL" placeholder="Palette Image" name="image" required>
+                  <mat-option *ngFor="let image of imageList" [value]="image">
+                    <img class="thumbnail" src="{{imageRoot}}{{data.paletteElement.paletteCategory.split('#')[1]}}/{{image}}">
+                    {{image}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <div *ngIf="data.paletteElement.type != 'PaletteConnector'">
+                <input #imageInput2
+                       type="file"
+                       accept="image/*"
+                       (change)="processImageUpload(imageInput2, 'thumbnail')">
+
+              </div>
+
+              <mat-form-field *ngIf="data.paletteElement.type != 'PaletteConnector'">
+
+                <mat-select [(ngModel)]="currentPaletteElement.imageURL" placeholder="Canvas Image" name="image" required>
+                  <mat-option *ngFor="let image of imageList" [value]="image">
+                    <img class="thumbnail" src="{{imageRoot}}{{data.paletteElement.paletteCategory.split('#')[1]}}/{{image}}">
+                    {{image}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.fromArrow" placeholder="From Arrow" name="arrow.from" required>
+                  <mat-option *ngFor="let arrow of arrowHeads" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Arrows/' + arrow + '.PNG'" [alt]="arrow">
+                    {{arrow}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.toArrow" placeholder="To Arrow" name="arrow.to" required>
+                  <mat-option *ngFor="let arrow of arrowHeads" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Arrows/' + arrow + '.PNG'" [alt]="arrow">
+                    {{arrow}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field *ngIf="data.paletteElement.type == 'PaletteConnector'">
+                <mat-select [(ngModel)]="currentPaletteElement.arrowStroke" placeholder="Arrow Stroke"
+                            name="arrow.stroke" required>
+                  <mat-option *ngFor="let arrow of arrowStrokes" [value]="arrow">
+                    <img class="thumbnail" [src]="'../assets/images/Strokes/' + arrow + '.PNG'" [alt]="arrow">
+                    {{arrow}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+            <br/>
+            <div layout="row">
+              <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+              <button mat-raised-button color="primary" (click)="createElementInOntology()" style="margin-right:20px;" >Create New Modeling Element</button>
+            </div>
+<!--
+            <div layout="row">
+            <mat-form-field class="full-width">
+              <input type="number" matInput placeholder="Min height of Canvas Image (in px)">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <input type="number" matInput placeholder="Min width of Canvas Image (in px)">
+            </mat-form-field>
+
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Label position">
+                <mat-option value="Inside">Inside</mat-option>
+                <mat-option value="Outside - Up">Outside - Up</mat-option>
+                <mat-option value="Outside - Down">Outside - Down</mat-option>
+                <mat-option value="Hide">Hide</mat-option>
+              </mat-select>
+            </mat-form-field>
+            </div>
+   -->
+            <br />
+            <!--<mat-accordion>
+              Default properties:
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Property1</mat-panel-title>
+                  <mat-panel-description>DataObject</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label>Range: Activity Task</label>
+                <mat-form-field style="margin-left:50px;">
+                  <input matInput placeholder="Default value">
+                </mat-form-field>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Property2</mat-panel-title>
+                  <mat-panel-description>Datatype</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label>Range: Integer</label>
+                <mat-form-field style="margin-left:50px;">
+                  <input matInput placeholder="Default value">
+                </mat-form-field>
+
+              </mat-expansion-panel>
+
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>Property3</mat-panel-title>
+                  <mat-panel-description>Datatype</mat-panel-description>
+                </mat-expansion-panel-header>
+                <label>Range: String</label>
+                <mat-form-field style="margin-left:50px;">
+                  <input matInput placeholder="Default value">
+                </mat-form-field>
+
+              </mat-expansion-panel>
+
+            </mat-accordion> -->
+
+          </form>
+        </mat-card>
+      </mat-tab>
+      <mat-tab label="Integrate with Existing Elements" *ngIf="(data.paletteElement.paletteCategory.search(VariablesSettings.CAT_CONNECTORS) == -1)">
+        <h3 class="mat-display-1">Add existing sub-classes to {{data.paletteElement.label}}</h3>
+        <mat-card>
+          <form class="form">
+
+            <div layout="row">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Parent Element" name="input_label" [(ngModel)]="data.paletteElement.label" [value]="data.paletteElement.label" disabled>
+              </mat-form-field>
+
+              <!--<mat-form-field class="full-width">
+                <mat-select placeholder="Existing Element" name="input_modelingLanguageOntology" multiple [(ngModel)]="data.paletteElement.languageSubclasses" required>
+                  <mat-option *ngFor="let class of mService.modelingLanguageClasses" [value]="class.id" >{{class.label}}</mat-option>
+                </mat-select>
+              </mat-form-field>-->
+              <ngx-select-dropdown name="input_modelingLanguageOntology" (change)="selectionChangedForIntegrate($event)" [multiple]="true" [(ngModel)]="data.paletteElement.languageSubclasses" [config]="config1" [options]="mService.modelingLanguageClasses" [required]="true">
+
+              </ngx-select-dropdown>
+
+            </div>
+
+            <br />
+            <div layout="row">
+            <button mat-raised-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" mat-autofocus (click)="onCloseCancel()">Cancel</button>
+            <button mat-raised-button color="primary" (click)="addSubClassesForLanguage(data.paletteElement)">Integrate</button>
+            </div>
+          </form>
+        </mat-card>
+      </mat-tab>
+
+    </mat-tab-group>
+  </mat-dialog-content>
+
+
+</form>
+<mat-dialog-actions layout="row">
+
+</mat-dialog-actions>
+
+<!-- https://github.com/angular/material2/issues/5269 -->

@@ -1,0 +1,49 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+<div class="file-upload">
+
+  {{fileName || "No file uploaded yet."}}
+
+  <button mat-mini-fab color="primary" class="upload-btn"
+          (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
+
+</body>
+</html>
+-->
+<div class="text-center">
+  <input class="form-control" type="file"
+         (change)="onChange($event)">
+<br>
+  <button  class="button7" style="background-color:#2979FF" (click)="onUpload()"
+          class="btn btn-success">
+    Upload
+  </button>
+</div>
+
+<!-- Shareable short link of  uoloaded file -->
+
+<!--
+<div class="container text-center jumbotron"
+     *ngIf="shortLink">-->
+  <!--ATTENTION: The commented code below allow to show realtime the link when it's retrieved from file.io-->
+  <!--<h2> Visit Here</h2>
+  <a href="{{shortLink}}">{{shortLink}}</a>-->
+<!--</div>
+-->
+<!--Flag variable is used here-->
+<div *ngIf="loading">
+  <h3>Loading ...</h3>
+  <div id="myDIV" style="display: none">Upload performed with success!</div>
+</div>

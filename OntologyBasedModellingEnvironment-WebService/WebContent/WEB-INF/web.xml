@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Modeller</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>Modeller</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+			<param-name>jersey.config.server.provider.packages</param-name>
+			<param-value>ch.fhnw.modeller.webservice</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Modeller</servlet-name>
+		<url-pattern>/*</url-pattern>
+	</servlet-mapping>
+	<!--auth0-->
+	<context-param>
+		<param-name>com.auth0.domain</param-name>
+		<param-value>dev-aoame.eu.auth0.com</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.auth0.clientId</param-name>
+		<param-value>VfMw1uLLw81IBymq9c3GPVL2oV3IeLY4</param-value>
+	</context-param>
+	<context-param>
+		<param-name>com.auth0.clientSecret</param-name>
+		<param-value>jYzbI4ZeK-J3o1UtsPOg9FirTM7IXzIO0-CdKyTxaTVlMvth_eiCxSDz41w8M4Jh</param-value>
+	</context-param>
+</web-app>

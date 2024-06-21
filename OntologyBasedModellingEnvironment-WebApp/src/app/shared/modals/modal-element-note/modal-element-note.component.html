@@ -1,0 +1,15 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Edit the note</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Note" [(ngModel)]="data.elementDetail.note"/>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="delete()">Delete</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

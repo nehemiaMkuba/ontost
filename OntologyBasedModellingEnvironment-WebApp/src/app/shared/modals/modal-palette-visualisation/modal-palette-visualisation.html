@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Change Visualisation of element</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-select [compareWith]="comparePaletteElements" [(ngModel)]="selectedPaletteElement">
+      <mat-option *ngFor="let paletteElement of paletteElements" [value]="paletteElement">
+        <div style="height: 4rem">
+          <a *ngIf="paletteElement.type != 'PaletteConnector'">
+            {{paletteElement.label}}
+            <img class="thumbnail"  src="{{imageRoot}}{{paletteElement.paletteCategory.split('#')[1]}}/{{paletteElement.thumbnailURL}}" />
+          </a>
+          <a *ngIf="paletteElement.type == 'PaletteConnector'">
+            {{paletteElement.label}}
+            <img *ngIf="paletteElement.fromArrow" class="thumbnail-arrow-head" [src]="'../assets/images/Arrows/' + paletteElement.fromArrow + '.PNG'" >
+            <img class="thumbnail-arrow-stroke" [src]="'../assets/images/Strokes/' + paletteElement.arrowStroke + '.PNG'" >
+            <img *ngIf="paletteElement.toArrow" class="thumbnail-arrow-head" [src]="'../assets/images/Arrows/' + paletteElement.toArrow + '.PNG'" >
+          </a>
+        </div>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="save()">Save</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+</mat-dialog-actions>

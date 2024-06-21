@@ -1,0 +1,14 @@
+<mat-toolbar>
+  <div class="mat-toolbar-tools">
+    <h2>Create new Model</h2>
+  </div>
+</mat-toolbar>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="model.label">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="closeDiagram()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="createDiagram()">Create</button>
+</mat-dialog-actions>

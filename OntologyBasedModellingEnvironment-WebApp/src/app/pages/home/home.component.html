@@ -1,0 +1,44 @@
+<html><head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <title>Home</title>
+</head>
+  <body>
+
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="loading-overlay-content">
+    <mat-spinner></mat-spinner>
+    <h1 style="color: white; font-size: 2em; font-weight: bold;">Loading automatically Turtle Languages...</h1>
+  </div>
+</div>
+
+<div class="banner"></div>
+<div class="container mt-5 mb-4"> <h1 class="text-center">How to model with <span style="color: Blue; font-weight: bold" >AOAME</span></h1></div>
+
+<div class="row">
+  <div class="col-lg-4"><a routerLink="/importExport">
+    <div class="stepBox">
+
+      <h1>1</h1>
+      <p>Import the ontology file</p>
+    </div></a>
+    </div>
+
+  <div class="col-lg-4">
+    <div class="stepBox"><a routerLink="/modeller">
+
+      <h1>2</h1>
+      <p>Model via graphical interface</p></a>
+    </div>
+  </div>
+
+
+  <div class="col-lg-4">
+  <div class="stepBox"><a routerLink="/importExport">
+      <h1>3</h1>
+      <p>Export the ontology model</p></a>
+    </div>
+  </div>
+</div>
+  <br>
+</body>
+</html>

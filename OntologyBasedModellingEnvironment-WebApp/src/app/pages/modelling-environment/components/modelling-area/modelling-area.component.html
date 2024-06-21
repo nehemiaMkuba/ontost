@@ -1,0 +1,44 @@
+<div style="display: flex; flex-direction: column">
+  <div style="display: flex; flex-direction: row">
+    <mat-form-field appearance="fill">
+      <mat-select
+        placeholder="Instantiation as"
+        [(ngModel)]="selectedInstantiationType">
+        <mat-option *ngFor="let instantiationType of getInstantiationTypes()" [value]="instantiationType">{{instantiationType}}</mat-option>
+
+      </mat-select>
+    </mat-form-field>
+
+
+
+<!--    <mat-card *ngIf="selectedConnectorMode" style="padding: 0">-->
+<!--      <mat-card-header>-->
+<!--        <mat-card-title>Current arrow configuration</mat-card-title>-->
+<!--      </mat-card-header>-->
+<!--      <img *ngIf="selectedConnectorMode.fromArrow" style="max-height: 30px; max-width:30px" [src]="'../assets/images/Arrows/' + selectedConnectorMode.fromArrow + '.PNG'" >-->
+<!--      <img style="max-height: 30px; max-width:90px" class="thumbnail" [src]="'../assets/images/Strokes/' + selectedConnectorMode.arrowStroke + '.PNG'" >-->
+<!--      <img *ngIf="selectedConnectorMode.toArrow" style="max-height: 30px; max-width:30px" class="thumbnail" [src]="'../assets/images/Arrows/' + selectedConnectorMode.toArrow + '.PNG'" >-->
+<!--    </mat-card>-->
+
+<!--    <label style="height: fit-content; align-self: center">-->
+<!--      <span style="font-family:Roboto,Helvetica Neue,sans-serif">Upload Canvas Image</span>-->
+<!--      <input #imageInput1-->
+<!--             type="file"-->
+<!--             accept="image/*"-->
+<!--             (change)="processImageUpload(imageInput1, 'canvas')">-->
+<!--    </label>-->
+<!--    <label style="height: fit-content; align-self: center">-->
+<!--      <span style="font-family:Roboto,Helvetica Neue,sans-serif">Upload Thumbnail Image</span>-->
+<!--      <input #imageInput2-->
+<!--             type="file"-->
+<!--             accept="image/*"-->
+<!--             (change)="processImageUpload(imageInput2, 'thumbnail')">-->
+<!--    </label>-->
+<!--    <div style="height: fit-content; align-self: center">{{ canvasTextBoxText }}</div>-->
+
+
+  </div>
+  <div style="display: flex; flex-direction: row">
+    <div id="myDiagramDiv" style="flex-grow: 1; height: 700px; "></div>
+  </div>
+</div>

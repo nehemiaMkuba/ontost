@@ -1,0 +1,85 @@
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!--<div style="width: 100%; display: flex; justify-content: space-between; height: 100px;">-->
+<!--  <span>palette is here</span>-->
+<!--  <div id="myPaletteDiv" style="width: 100px; margin-right: 2px; background-color: rgb(40, 44, 52); position: relative; -webkit-tap-highlight-color: rgba(255, 255, 255, 0);"><canvas tabindex="0" width="100" height="750" style="position: absolute; top: 0px; left: 0px; z-index: 2; user-select: none; touch-action: none; width: 100px; height: 750px;">This text is displayed if your browser does not support the Canvas HTML element.</canvas><div style="position: absolute; overflow: auto; width: 100px; height: 750px; z-index: 1;"><div style="position: absolute; width: 1px; height: 1px;"></div></div></div>-->
+<!--</div>-->
+<div>
+  <!-- Heroku difference -->
+  <mat-select class="modelling-language" placeholder="Modelling Language" (selectionChange)="selectLang($event)">
+    <mat-option *ngFor="let lang of modelingLanguages" [value]="lang.id">{{lang.label}}</mat-option>
+  </mat-select>
+</div>
+
+<div>
+  <!-- Heroku difference -->
+  <mat-select class="modelling-language-view" placeholder="Modelling Language View" (selectionChange)="selectView($event)">
+    <mat-option *ngFor="let view of modelingViews" [value]="view.id">{{view.label}}</mat-option>
+  </mat-select>
+</div>
+
+<div class="category" [contextMenu]="paletteRightClickMenu" *ngFor="let category of paletteCategories; let indexCategory=index;">
+  <p class="category-title">{{category.label}}</p>
+  <nav class="element-container">
+    <ng-container *ngFor="let element of mService.paletteElements; let indexElement=index;">
+      <ul class="element" *ngIf="(element.paletteCategory == category.id && element.hiddenFromPalette == false && !isElementBlacklisted(element))">
+        <li class="paletteElement" >
+          <a *ngIf="element.type != 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="element"  (click)="addNewShape(element)">
+            <img class="thumbnail" src="{{imageRoot}}{{category.idSuffix}}/{{element.thumbnailURL}}" *ngIf="!isElementMappedToBPMNMappers(element)"/>
+            <div style="height: 85px;" *ngIf="isBPMNNotationSelected() && isElementMappedToBPMNMappers(element)">
+              <div id="myPalette-{{indexCategory}}-{{indexElement}}" style="width: 450px; position: relative; height: 85px; right: 350px" class="bpmn-canvas-container"></div>
+            </div>
+          </a>
+          <a *ngIf="element.type == 'PaletteConnector'" [contextMenu]="elementRightClickMenu" [contextMenuSubject]="element"  (click)="addNewShape(element)">
+            <img *ngIf="element.fromArrow" class="thumbnail-arrow-head" [src]="'../../../../../assets/images/Arrows/' + element.fromArrow + '.PNG'" >
+            <img class="thumbnail-arrow-stroke" [src]="'../assets/images/Strokes/' + element.arrowStroke + '.PNG'" >
+            <img *ngIf="element.toArrow" class="thumbnail-arrow-head" [src]="'../../../../../assets/images/Arrows/' + element.toArrow + '.PNG'" >
+          </a>
+          <app--tool-recursive-palette-element (showActivityElementPropertyModal1)="toggleActivityElementPropertyModal($event)"
+                                               (showExtendPaletteElementModal1)="toggleExtendPaletteElementModal($event)"
+                                               (showEditPaletteElementModal1)="toggleEditPaletteElementModal($event)"
+                                               (sendElementFromRecursiveElement)="addNewShape($event)" [child]="element"
+                                               [isBPMNNotationSelected]="isBPMNNotationSelected()" [parentPaletteId]="'myPalette-'+indexCategory+'-'+indexElement"></app--tool-recursive-palette-element>
+        </li>
+      </ul>
+    </ng-container>
+  </nav>
+</div>
+
+
+
+<context-menu #elementRightClickMenu>
+  <ng-template let-element contextMenuItem (execute)="toggleExtendPaletteElementModal($event.item)">
+    Extend {{element.label}}
+  </ng-template>
+  <ng-template let-element contextMenuItem (execute)="toggleEditPaletteElementModal($event.item)">
+    Edit {{element.label}}
+  </ng-template>
+  <!-- <ng-template contextMenuItem [subMenu]="saySubMenu">
+    Edit
+  </ng-template>
+  <context-menu #saySubMenu>
+    <ng-template contextMenuItem (execute)="openActivityElementProperty($event.item)">
+      Add new Attribute
+    </ng-template>
+    <ng-template let-element contextMenuItem (execute)="openEditPaletteElementModal($event.item)">
+      Edit {{element.label}}
+    </ng-template>
+  </context-menu> -->
+<!--  <ng-template let-element contextMenuItem (execute)="hideFromPalette($event.item)">-->
+<!--    Hide-->
+<!--  </ng-template>-->
+  <!--<ng-template let-element contextMenuItem (execute)="removeFromPalette($event.item)">
+    Delete {{element.label}}
+  </ng-template>-->
+  <ng-template let-element contextMenuItem (execute)="showInstantiatedElements($event.item)">
+    Show Instances
+  </ng-template>
+</context-menu>
+
+
+<context-menu #paletteRightClickMenu>
+  <ng-template let-element contextMenuItem (execute)="toggleCreateDomainElementModal($event.item)">
+    Create new Domain Ontology Element
+  </ng-template>
+
+</context-menu>
